@@ -123,6 +123,7 @@ if (isset($_POST['submit'])) {
         'LoginType' => (isset($LoginType) ? $LoginType : 0), //Required
         'OrderComment' => (isset($OrderComment) ? $OrderComment : null),
         'CVSCOM' => (isset($CVSCOM) ? $CVSCOM : 0),
+        'ImageUrl' => (isset($ImageUrl) ? $ImageUrl : null),
     ];
 
     $payments = isset($_POST['Payments']) ? $_POST['Payments'] : [];

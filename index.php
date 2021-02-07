@@ -163,6 +163,10 @@
         </div>
       </div>
       <div class="form-group">
+        <label class="form-label" for="ImageUrl">LINEPAY 產品圖檔連結網址</label>
+        <input type="text" class="form-control" name="ImageUrl" id="ImageUrl" maxlength="50">
+      </div>
+      <div class="form-group">
         <h5>支付寶設定</h5>
         <div class="form-check">
           <input type="checkbox" class="form-check-input" name="Payments[]" id="Payments_ALIPAY" value="ALIPAY">
