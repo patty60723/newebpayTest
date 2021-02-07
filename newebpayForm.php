@@ -101,6 +101,7 @@ if (isset($_POST['submit'])) {
     foreach($_POST as $type => $value) {
         $$type = $value;
     }
+    $tempRandomOrderNo = getTempRandomOrderNo();
 
     $tradeInfo = [
         'MerchantID' => (isset($MerchantID) ? $MerchantID : 'MS318433486'), //Required
@@ -108,7 +109,7 @@ if (isset($_POST['submit'])) {
         'TimeStamp' => time(), //Required
         'Version' => '1.5', //Required
         'LangType' => (isset($LangType) ? $LangType : null),
-        'MerchantOrderNo' => getTempRandomOrderNo(), //Required
+        'MerchantOrderNo' => $tempRandomOrderNo, //Required
         'Amt' => (isset($Amt) ? $Amt : 100), //Required
         'ItemDesc' => utf8_encode((isset($ItemDesc) ? $ItemDesc : 'Unittest')), //Required
         'TradeLimit' => (isset($TradeLimit) ? $TradeLimit : null),
@@ -127,21 +128,27 @@ if (isset($_POST['submit'])) {
     $payments = isset($_POST['Payments']) ? $_POST['Payments'] : [];
     foreach ($payments as $index => $type)
     {
-        switch ((string)$index) {
-            case 'InstFlag':
-                $value = $type == 1 ? $type : implode(',', $type);
-                $tradeInfo[$index] = $value;
-                break;
-            case 'ALIPLAY':
+        if ((string)$index == 'InstFlag') {
+            $value = $type == 1 ? $type : implode(',', $type);
+            $tradeInfo[$index] = $value;
+        } else {
+            if ($type == 'ALIPAY') {
                 $ALIPAY_info = isset($ALIPAY) ? $ALIPAY : [];
                 foreach ($ALIPAY_info as $k => $v) {
                     $tradeInfo[$k] = $v;
                 }
-            default:
-                $tradeInfo[$type] = 1;
-                break;
+                $product_info = [
+                    'Count' => 1,
+                    'Pid1' => $tempRandomOrderNo,
+                    'Title1' => $ItemDesc,
+                    'Desc1' => $ItemDesc,
+                    'Price1' => $Amt,
+                    'Qty1' => 1,
+                ];
+                $tradeInfo = array_merge($tradeInfo, $product_info);
+            }
+            $tradeInfo[$type] = 1;
         }
-        
     }
     generateForm(generateMetadata($tradeInfo, $HashKey, $HashIV));
     generateSubmitJs();
