@@ -184,6 +184,54 @@
         </div>
       </div>
       <div class="form-group">
+        <h5>國民旅遊卡交易</h5>
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" name="Payments[]" id="Payments_NTCB" value="NTCB">
+          <label for="Payments_NTCB" class="form-check-label">使用國民旅遊卡交易</label>
+        </div>
+        <div id="NTCB_INFO" style="display: none;">
+          <div class="form-group">
+            <label class="form-label" for="NTCBLocate">旅遊地區代號</label>
+            <select class="form-control" name="NTCB[NTCBLocate]" id="NTCBLocate">
+              <option value="001">台北市</option>
+              <option value="002">基隆市</option>
+              <option value="003">新北市</option>
+              <option value="004">宜蘭縣</option>
+              <option value="005">新竹市</option>
+              <option value="006">新竹縣</option>
+              <option value="007">桃園縣</option>
+              <option value="008">苗栗縣</option>
+              <option value="009">台中市</option>
+              <option value="011">彰化縣</option>
+              <option value="012">南投縣</option>
+              <option value="013">嘉義市</option>
+              <option value="014">嘉義縣</option>
+              <option value="015">雲林縣</option>
+              <option value="016">台南市</option>
+              <option value="018">高雄市</option>
+              <option value="020">屏東縣</option>
+              <option value="021">台東縣</option>
+              <option value="022">花蓮縣</option>
+              <option value="023">澎湖縣</option>
+              <option value="024">金門縣</option>
+              <option value="025">連江縣</option>
+              <option value="026">南海諸島</option>
+              <option value="027">釣魚台列嶼</option>
+              <option value="028">屏東縣琉球鄉離島</option>
+              <option value="029">台東縣綠島、蘭嶼</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="NTCBStartDate">國民旅遊卡起始日期</label>
+            <input class="form-control" type="text" name="NTCB[NTCBStartDate]" id="NTCBStartDate" placeholder="YYYY-MM-DD">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="NTCBEndDate">國民旅遊卡結束日期</label>
+            <input class="form-control" type="text" name="NTCB[NTCBEndDate]" id="NTCBEndDate" placeholder="YYYY-MM-DD">
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
         <label class="form-label">啟用物流選項</h5>
         <select class="form-control" name="CVSCOM" id="CVSCOM">
           <option value="0">不啟用</option>
@@ -203,8 +251,8 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 <script>
-var el = document.getElementById("Payments_ALIPAY");
-el.addEventListener(
+var alipay = document.getElementById("Payments_ALIPAY"), ntcb = document.getElementById("Payments_NTCB");
+alipay.addEventListener(
   "click",
   function(e) {
     if (this.checked) {
@@ -213,6 +261,17 @@ el.addEventListener(
       document.getElementById("ALIPAY_INFO").style = "display: none;";
     }
   }
-)
+);
+
+ntcb.addEventListener(
+  "click",
+  function(e) {
+    if (this.checked) {
+      document.getElementById("NTCB_INFO").style.display = '';
+    } else {
+      document.getElementById("NTCB_INFO").style = "display: none;";
+    }
+  }
+);
 </script>
 </html>

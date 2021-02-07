@@ -132,20 +132,28 @@ if (isset($_POST['submit'])) {
             $value = $type == 1 ? $type : implode(',', $type);
             $tradeInfo[$index] = $value;
         } else {
-            if ($type == 'ALIPAY') {
-                $ALIPAY_info = isset($ALIPAY) ? $ALIPAY : [];
-                foreach ($ALIPAY_info as $k => $v) {
-                    $tradeInfo[$k] = $v;
-                }
-                $product_info = [
-                    'Count' => 1,
-                    'Pid1' => $tempRandomOrderNo,
-                    'Title1' => $ItemDesc,
-                    'Desc1' => $ItemDesc,
-                    'Price1' => $Amt,
-                    'Qty1' => 1,
-                ];
-                $tradeInfo = array_merge($tradeInfo, $product_info);
+            switch ($type) {
+                case 'ALIIPAY':
+                    $ALIPAY_info = isset($ALIPAY) ? $ALIPAY : [];
+                    foreach ($ALIPAY_info as $k => $v) {
+                        $tradeInfo[$k] = $v;
+                    }
+                    $product_info = [
+                        'Count' => 1,
+                        'Pid1' => $tempRandomOrderNo,
+                        'Title1' => $ItemDesc,
+                        'Desc1' => $ItemDesc,
+                        'Price1' => $Amt,
+                        'Qty1' => 1,
+                    ];
+                    $tradeInfo = array_merge($tradeInfo, $product_info);
+                    break;
+                case 'NTCB':
+                    $NTCB_info = isset($NTCB) ? $NTCB : [];
+                    foreach ($NTCB_info as $k => $v) {
+                        $tradeInfo[$k] = $v;
+                    }
+                    break;
             }
             $tradeInfo[$type] = 1;
         }
